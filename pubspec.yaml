@@ -1,5 +1,5 @@
 name: hire_us
-description: "HireUs is a Sri Lankan marketplace app that connects customers with skilled workers such as plumbers, electricians, carpenters, masons and handymen, for anything from a quick repair to a full construction project. HireUs acts as the agent between clients and independent workers, and an admin approves every provider before they can take jobs. It earns a commission on each job plus a booking fee, and customers can pay in cash or online. There are three apps (residential clients, company clients and service providers). They're built on Firebase for Android and iOS, support Sinhala, English and Tamil, and will launch first in Colombo and Gampaha."
+description: "HireUs is a Sri Lankan marketplace app that connects customers with skilled workers such as plumbers, electricians, carpenters, masons and handymen, for anything from a quick repair to a full construction project. HireUs acts as the agent between clients and independent workers, and an admin approves every providers before they can take jobs. It earns a commission on each job plus a booking fee, and customers can pay in cash or online. There are three apps (residential clients, company clients and service providers). They're built on Firebase for Android and iOS, support Sinhala, English and Tamil, and will launch first in Colombo and Gampaha."
 
 publish_to: 'none'
 version: 1.0.0+1
@@ -13,6 +13,7 @@ dependencies:
 
 
   cupertino_icons: ^1.0.8
+  lottie: ^3.8.2
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animations/
