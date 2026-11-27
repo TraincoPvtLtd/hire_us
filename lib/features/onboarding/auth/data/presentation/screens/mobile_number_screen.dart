@@ -28,7 +28,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
 
   void chooseCountry() {
     final allCountries = CountryService().getAll();
-    List filteredCountries = List.from(allCountries);
+    List<Country> filteredCountries = List.from(allCountries);
 
     showModalBottomSheet(
       context: context,
@@ -101,7 +101,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                                   style: const TextStyle(fontSize: 22),
                                 ),
                                 const SizedBox(width: 14),
-
+                                
                                 SizedBox(
                                   width: 68,
                                   child: Text(
