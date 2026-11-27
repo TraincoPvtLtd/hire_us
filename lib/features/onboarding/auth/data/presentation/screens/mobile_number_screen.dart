@@ -27,15 +27,116 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
   }
 
   void chooseCountry() {
-    showCountryPicker(
+    final allCountries = CountryService().getAll();
+    List filteredCountries = List.from(allCountries);
+
+    showModalBottomSheet(
       context: context,
-      showPhoneCode: true,
-      onSelect: (Country country) {
-        setState(() {
-          selectedFlag = country.flagEmoji;
-          selectedPhoneCode = country.phoneCode;
-          errorText = null;
-        });
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Color(0xFFD9D9E1)),
+                        ),
+                      ),
+                      onChanged: (query) {
+                        final q = query.trim().toLowerCase();
+                        setModalState(() {
+                          filteredCountries = allCountries.where((c) {
+                            return c.name.toLowerCase().contains(q) ||
+                                c.phoneCode.contains(q);
+                          }).toList();
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredCountries.length,
+                      itemBuilder: (context, index) {
+                        final country = filteredCountries[index];
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedFlag = country.flagEmoji;
+                              selectedPhoneCode = country.phoneCode;
+                              errorText = null;
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  country.flagEmoji,
+                                  style: const TextStyle(fontSize: 22),
+                                ),
+                                const SizedBox(width: 14),
+
+                                SizedBox(
+                                  width: 68,
+                                  child: Text(
+                                    '+${country.phoneCode}',
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF1A1F36),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    country.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF1A1F36),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -136,7 +237,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
               ),
             ),
 
-          // Country picker and phone number input
+
           Row(
             children: [
               InkWell(
