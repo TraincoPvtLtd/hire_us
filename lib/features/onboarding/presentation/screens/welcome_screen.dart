@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hire_us/core/theme/app_colors.dart';
 import 'package:hire_us/features/onboarding/presentation/widgets/get_started_button.dart';
 import 'package:lottie/lottie.dart';
+import 'package:hire_us/features/onboarding/presentation/screens/language_selection_screen.dart';
 
 class WelcomeScreen extends StatelessWidget{
 
   const WelcomeScreen({super.key});
   void _onGetStarted(BuildContext context){
-    debugPrint('Navigate to Language Selection Screen');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LanguageSelectionScreen()),
+    );
   }
 
   @override
